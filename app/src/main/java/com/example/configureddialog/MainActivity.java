@@ -116,13 +116,27 @@ public class MainActivity extends AppCompatActivity {
         adb = new AlertDialog.Builder(this);
         adb.setTitle("click OK to change color");
         adb.setCancelable(false);
+        adb.setMultiChoiceItems(colors, null, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked)
+                    color[which] = 255;
+                else
+                    if (color[which]==255)
+                        color[which] = 0;
+            }
+        });
         /**
          * changing background color when the "ok"button is clicked
          */
         adb.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ll.setBackgroundColor(Color.rgb(150,150,150));
+                ll.setBackgroundColor(Color.rgb(color[0], color[1], color[2]));
+                color[0] = 0;
+                color[1] = 0;
+                color[2] = 0;
+
             }
         });
 
